@@ -1,4 +1,6 @@
 using EjendomBeregner.BusinessLogic;
+using Moq;
+using Xunit;
 
 namespace BusinessLogic.Test
 {
@@ -8,7 +10,6 @@ namespace BusinessLogic.Test
         public void Kvadratmeter_Sum_Stemmer_Med_Lejemaalsum()
         {
             // Arrange
-            var sut = new EjendomBeregnerService();
             var lejemaals = new List<Lejemaal>
             {
                 new Lejemaal {Kvadratmeter = 5},
@@ -16,6 +17,8 @@ namespace BusinessLogic.Test
                 new Lejemaal {Kvadratmeter = 30}
             };
             var expected = lejemaals.Sum(l => l.Kvadratmeter);
+
+            var sut = new EjendomBeregnerService(...);
 
             // Act 
             var actual = sut.BeregnKvadratmeter();
