@@ -2,29 +2,31 @@ using EjendomBeregner.BusinessLogic;
 using Moq;
 using Xunit;
 
-namespace BusinessLogic.Test
+namespace BusinessLogic.Test;
+
+public class BeregnKvadratmeterTests
 {
-    public class BeregnKvadratmeterTests
+    [Fact]
+    public void Kvadratmeter_Sum_Stemmer_Med_Lejemaalsum()
     {
-        [Fact]
-        public void Kvadratmeter_Sum_Stemmer_Med_Lejemaalsum()
+        // Arrange
+        var lejemaals = new List<Lejemaal>
         {
-            // Arrange
-            var lejemaals = new List<Lejemaal>
-            {
-                new Lejemaal {Kvadratmeter = 5},
-                new Lejemaal {Kvadratmeter = 20},
-                new Lejemaal {Kvadratmeter = 30}
-            };
-            var expected = lejemaals.Sum(l => l.Kvadratmeter);
+            new() {Kvadratmeter = 5},
+            new() {Kvadratmeter = 20},
+            new() {Kvadratmeter = 30}
+        };
+        var expected = lejemaals.Sum(l => l.Kvadratmeter);
 
-            var sut = new EjendomBeregnerService(...);
+        var lejemaalRepositoryMock = new Mock<ILejemaalRepository>();
+        lejemaalRepositoryMock.Setup(l => l.HentLejemaal()).Returns(lejemaals);
 
-            // Act 
-            var actual = sut.BeregnKvadratmeter();
+        var sut = new EjendomBeregnerService(lejemaalRepositoryMock.Object);
 
-            // Assert
-            Assert.Equal(expected, actual);
-        }
+        // Act 
+        var actual = sut.BeregnKvadratmeter();
+
+        // Assert
+        Assert.Equal(expected, actual);
     }
 }

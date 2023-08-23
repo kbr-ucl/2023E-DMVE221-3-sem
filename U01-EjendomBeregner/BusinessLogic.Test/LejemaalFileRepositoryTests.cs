@@ -14,7 +14,9 @@ public class LejemaalFileRepositoryTests
         double expectedKvadratmeter, double expectedRum)
     {
         // Arrange
-        var sut = new LejemaalFileRepository(...);
+        var fileWrapperMock = new Mock<IFileWrapper>();
+        fileWrapperMock.Setup(f => f.ReadAllLines(It.IsAny<string>())).Returns(new[] {csvLine});
+        var sut = new LejemaalFileRepository(It.IsAny<string>(), fileWrapperMock.Object);
 
         // Act
         var actual = sut.HentLejemaal().First();
