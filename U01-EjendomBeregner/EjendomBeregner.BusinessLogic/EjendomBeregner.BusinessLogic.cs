@@ -2,6 +2,13 @@
 {
     public class EjendomBeregnerService
     {
+        private readonly ILejemaalRepository _lejemaalRepository;
+
+        public EjendomBeregnerService(ILejemaalRepository lejemaalRepository)
+        {
+            _lejemaalRepository = lejemaalRepository;
+        }
+
         /// <summary>
         ///     Beregner ejendommens kvadratmeter ud fra ejendommens lejelmål.
         ///     Lejemål er i en kommasepareret tekstfil. Formatet af filen er:
@@ -12,20 +19,14 @@
         /// </summary>
         /// <param name="lejemaalDataFilename"></param>
         /// <returns></returns>
-        public double BeregnKvadratmeter(string lejemaalDataFilename)
+        public double BeregnKvadratmeter()//List<Lejemaal> lejemaals)
         {
-            var lejemaalene = File.ReadAllLines(lejemaalDataFilename);
-            var kvadratmeter = 0.0;
-
-
-            foreach (var lejemaal in lejemaalene)
+            var lejemaals = _lejemaalRepository.HentLejemaal();
+            double kvadratmeter = 0;
+            foreach (var lejemaal in lejemaals)
             {
-                var lejemaalParts = lejemaal.Split(',');
-                double lejemaalKvadratmeter;
-                double.TryParse(RemoveQuotes(lejemaalParts[1]), out lejemaalKvadratmeter);
-                kvadratmeter += lejemaalKvadratmeter;
+                kvadratmeter += lejemaal.Kvadratmeter;
             }
-
             return kvadratmeter;
         }
 
@@ -33,5 +34,12 @@
         {
             return lejemaalPart.Replace('"', ' ').Trim();
         }
+    }
+
+    public class Lejemaal
+    {
+        public int Lejlighednummer { get; set; }
+        public double Kvadratmeter { get; set; }
+        public double Rum { get; set; }
     }
 }
