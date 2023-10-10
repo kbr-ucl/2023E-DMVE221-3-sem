@@ -1,4 +1,4 @@
-﻿namespace DomainCentricDemo.Web.Model
+﻿namespace DomainCentricDemo.Web.Pages.Book
 {
     public class BookViewModel
     {
