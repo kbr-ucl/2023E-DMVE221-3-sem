@@ -4,6 +4,6 @@ namespace DomainCentricDemo.Application;
 
 public interface IBookQuery
 {
-    BookDto Get();
+    BookDto? Get(int id);
     List<BookDto> GetAll();
 }
