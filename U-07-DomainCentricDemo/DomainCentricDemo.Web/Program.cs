@@ -1,6 +1,8 @@
 using DomainCentricDemo.Application;
+using DomainCentricDemo.Application.Implentation;
 using DomainCentricDemo.Infrastructure;
 using DomainCentricDemo.Infrastructure.Queries;
+using DomainCentricDemo.Infrastructure.Repositories;
 using DomainCentricDemo.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +20,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<IBookQuery, BookQuery>();
+builder.Services.AddScoped<IBookCommand, BookCommand>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddDbContext<BookContext>(options =>
     options.UseSqlServer(
         builder.Configuration.
