@@ -24,4 +24,32 @@ public class BookCommand : IBookCommand
         _bookRepository.Create(book);
         _bookRepository.Commit();
     }
+
+    void IBookCommand.Delete(int id)
+    {
+        // Load
+        var book = _bookRepository.Load(id);
+
+        // Execute
+        // book.IsDeletable();
+
+        // Delete
+        _bookRepository.Delete(book);
+        _bookRepository.Commit();
+    }
+
+    void IBookCommand.Update(BookUpdateRequestDto updateRequest)
+    {
+        // Load
+        var book = _bookRepository.Load(updateRequest.Id);
+
+        // Execute
+        book.Title = updateRequest.Title;
+        book.Author = updateRequest.Author;
+        book.Description = updateRequest.Description;
+
+        // Persist
+        _bookRepository.Save(book);
+        _bookRepository.Commit();
+    }
 }

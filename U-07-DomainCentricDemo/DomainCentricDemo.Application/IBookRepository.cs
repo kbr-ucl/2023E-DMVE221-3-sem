@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DomainCentricDemo.Domain;
+﻿using DomainCentricDemo.Domain;
 
-namespace DomainCentricDemo.Application
+namespace DomainCentricDemo.Application;
+
+public interface IBookRepository
 {
-    public interface IBookRepository
-    {
-        void Create(Book book);
-        void Commit();
-    }
+    void Create(Book book);
+    void Commit();
+    Book Load(int id);
+    void Save(Book book);
+    void Delete(Book book);
 }
