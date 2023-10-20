@@ -44,6 +44,7 @@ public class EditModel : PageModel
         _command.Update(new BookUpdateRequestDto
         {
             //Author = Book.Author, 
+            AuthorIds = new(),
             Description = Book.Description,
             Title = Book.Title,
             Id = Book.Id

@@ -28,6 +28,7 @@ public class CreateModel : PageModel
         if (!ModelState.IsValid) return Page();
 
         _bookCommand.Create(new BookCreateCommandRequestDto {//AuthorIds = Book.Author, 
+            AuthorIds = new(),
             Description = Book.Description,
             Title = Book.Title});
 
