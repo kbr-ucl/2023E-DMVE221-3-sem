@@ -1,8 +1,7 @@
 ﻿namespace DomainCentricDemo.Application.Dto;
 
-public class BookUpdateRequestDto
+public class BookCreateCommandRequestDto
 {
-    public int Id { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
     public List<int> AuthorIds { get; set; }

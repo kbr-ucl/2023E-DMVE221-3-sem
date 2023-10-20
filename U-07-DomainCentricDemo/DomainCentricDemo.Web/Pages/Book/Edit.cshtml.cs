@@ -1,9 +1,7 @@
 ﻿using DomainCentricDemo.Application;
 using DomainCentricDemo.Application.Dto;
-using DomainCentricDemo.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
 namespace DomainCentricDemo.Web.Pages.Book;
 
@@ -26,11 +24,11 @@ public class EditModel : PageModel
 
         var book = _query.Get(id.Value);
         if (book == null) return NotFound();
-        
+
         Book = new BookViewModel
         {
-            Author = book.Author, 
-            Description = book.Description, 
+            // Author = book.Author, 
+            Description = book.Description,
             Title = book.Title,
             Id = book.Id
         };
@@ -43,11 +41,13 @@ public class EditModel : PageModel
     {
         if (!ModelState.IsValid) return Page();
 
-        _command.Update(new BookUpdateRequestDto {Author = Book.Author, 
-            Description = Book.Description, 
+        _command.Update(new BookUpdateRequestDto
+        {
+            //Author = Book.Author, 
+            Description = Book.Description,
             Title = Book.Title,
-            Id = Book.Id});
+            Id = Book.Id
+        });
         return RedirectToPage("./Index");
     }
-
 }

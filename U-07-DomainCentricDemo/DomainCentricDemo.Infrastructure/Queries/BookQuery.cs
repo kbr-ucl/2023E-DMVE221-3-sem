@@ -1,5 +1,6 @@
 ﻿using DomainCentricDemo.Application;
 using DomainCentricDemo.Application.Dto;
+using DomainCentricDemo.Application.Mapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace DomainCentricDemo.Infrastructure.Queries;
@@ -18,27 +19,14 @@ public class BookQuery : IBookQuery
         var book = _db.Books.AsNoTracking().FirstOrDefault(a => a.Id == id);
         if (book == null) return null;
 
-
-        return new BookDto
-        {
-            Author = book.Author,
-            Description = book.Description,
-            Id = book.Id,
-            Title = book.Title
-        };
+        return BookMapper.MapToDto(book);
     }
 
     List<BookDto> IBookQuery.GetAll()
     {
         var books = new List<BookDto>();
         foreach (var book in _db.Books)
-            books.Add(new BookDto
-            {
-                Id = book.Id,
-                Title = book.Title,
-                Author = book.Author,
-                Description = book.Description
-            });
+            books.Add(BookMapper.MapToDto(book));
 
 
         return books;
