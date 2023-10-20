@@ -32,7 +32,8 @@ public class EditModel : PageModel
             Author = book.Author, 
             Description = book.Description, 
             Title = book.Title,
-            Id = book.Id
+            Id = book.Id,
+            RowVersion = book.RowVersion
         };
         return Page();
     }
@@ -46,7 +47,8 @@ public class EditModel : PageModel
         _command.Update(new BookUpdateRequestDto {Author = Book.Author, 
             Description = Book.Description, 
             Title = Book.Title,
-            Id = Book.Id});
+            Id = Book.Id, 
+            RowVersion = Book.RowVersion});
         return RedirectToPage("./Index");
     }
 

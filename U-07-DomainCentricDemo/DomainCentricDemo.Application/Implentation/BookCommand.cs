@@ -10,7 +10,7 @@ public class BookCommand : IBookCommand
     {
         _bookRepository = bookRepository;
     }
-    void IBookCommand.Create(BookCommandRequestDto createRequest)
+    void IBookCommand.Create(BookCreateRequestDto createRequest)
     {
         // Create Domain object
         var book = new Book
@@ -47,6 +47,7 @@ public class BookCommand : IBookCommand
         book.Title = updateRequest.Title;
         book.Author = updateRequest.Author;
         book.Description = updateRequest.Description;
+        book.RowVersion = updateRequest.RowVersion;
 
         // Persist
         _bookRepository.Save(book);

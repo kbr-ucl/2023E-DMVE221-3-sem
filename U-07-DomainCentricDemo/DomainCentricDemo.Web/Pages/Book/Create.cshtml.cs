@@ -14,7 +14,7 @@ public class CreateModel : PageModel
         _bookCommand = bookCommand;
     }
 
-    [BindProperty] public BookViewModel Book { get; set; } = default!;
+    [BindProperty] public BookCreateViewModel Book { get; set; } = default!;
 
     public IActionResult OnGet()
     {
@@ -27,7 +27,7 @@ public class CreateModel : PageModel
     {
         if (!ModelState.IsValid) return Page();
 
-        _bookCommand.Create(new BookCommandRequestDto {Author = Book.Author, 
+        _bookCommand.Create(new BookCreateRequestDto {Author = Book.Author, 
             Description = Book.Description,
             Title = Book.Title});
 

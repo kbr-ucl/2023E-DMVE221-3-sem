@@ -24,7 +24,8 @@ public class BookQuery : IBookQuery
             Author = book.Author,
             Description = book.Description,
             Id = book.Id,
-            Title = book.Title
+            Title = book.Title,
+            RowVersion = book.RowVersion
         };
     }
 
@@ -37,7 +38,8 @@ public class BookQuery : IBookQuery
                 Id = book.Id,
                 Title = book.Title,
                 Author = book.Author,
-                Description = book.Description
+                Description = book.Description,
+                RowVersion = book.RowVersion
             });
 
 

@@ -28,7 +28,8 @@ public class DeleteModel : PageModel
             Author = book.Author, 
             Description = book.Description, 
             Title = book.Title,
-            Id = book.Id
+            Id = book.Id, 
+            RowVersion = book.RowVersion
         };
         return Page();
     }

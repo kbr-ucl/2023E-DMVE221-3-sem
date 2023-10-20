@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices.ComTypes;
 using DomainCentricDemo.Application;
 using DomainCentricDemo.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace DomainCentricDemo.Infrastructure.Repositories;
 
@@ -30,10 +31,11 @@ public class BookRepository : IBookRepository
 
     Book IBookRepository.Load(int id)
     {
-        return _db.Books.First(book => book.Id == id);
+        return _db.Books.AsNoTracking().First(book => book.Id == id);
     }
 
     void IBookRepository.Save(Book book)
     {
+        _db.Books.Update(book);
     }
 }

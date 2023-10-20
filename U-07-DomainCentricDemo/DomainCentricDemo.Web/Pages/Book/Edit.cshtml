@@ -14,6 +14,7 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Book.Id" />
+            <input type="hidden" asp-for="Book.RowVersion" />
             <div class="form-group">
                 <label asp-for="Book.Title" class="control-label"></label>
                 <input asp-for="Book.Title" class="form-control" />
