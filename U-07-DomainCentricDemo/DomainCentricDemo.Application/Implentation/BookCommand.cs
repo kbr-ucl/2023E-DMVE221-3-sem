@@ -1,4 +1,5 @@
-﻿using DomainCentricDemo.Application.Dto;
+﻿using AutoMapper;
+using DomainCentricDemo.Application.Dto;
 using DomainCentricDemo.Domain;
 
 namespace DomainCentricDemo.Application.Implentation;
@@ -6,19 +7,17 @@ namespace DomainCentricDemo.Application.Implentation;
 public class BookCommand : IBookCommand
 {
     private readonly IBookRepository _bookRepository;
-    public BookCommand(IBookRepository bookRepository)
+    private readonly IMapper _mapper;
+
+    public BookCommand(IBookRepository bookRepository, IMapper mapper)
     {
         _bookRepository = bookRepository;
+        _mapper = mapper;
     }
     void IBookCommand.Create(BookCommandRequestDto createRequest)
     {
         // Create Domain object
-        var book = new Book
-        {
-            Author = createRequest.Author,
-            Description = createRequest.Description,
-            Title = createRequest.Title
-        };
+        var book = _mapper.Map<Book>(createRequest);
 
         // Persist Domain object
         _bookRepository.Create(book);

@@ -32,6 +32,11 @@ builder.Services.AddDbContext<BookContext>(options =>
         }));
 // Add-Migration Init -Project DomainCentricDemo.InfraStructure -Context BookContext
 // Update-Database -Context BookContext
+
+// https://docs.automapper.org/en/stable/Getting-started.html
+// https://stackoverflow.com/questions/71216149/how-to-setup-automapper-in-asp-net-core-6
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

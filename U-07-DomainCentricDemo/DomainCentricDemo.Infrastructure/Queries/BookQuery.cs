@@ -1,4 +1,5 @@
-﻿using DomainCentricDemo.Application;
+﻿using AutoMapper;
+using DomainCentricDemo.Application;
 using DomainCentricDemo.Application.Dto;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,10 +8,12 @@ namespace DomainCentricDemo.Infrastructure.Queries;
 public class BookQuery : IBookQuery
 {
     private readonly BookContext _db;
+    private readonly IMapper _mapper;
 
-    public BookQuery(BookContext db)
+    public BookQuery(BookContext db, IMapper mapper)
     {
         _db = db;
+        _mapper = mapper;
     }
 
     BookDto? IBookQuery.Get(int id)
@@ -19,28 +22,11 @@ public class BookQuery : IBookQuery
         if (book == null) return null;
 
 
-        return new BookDto
-        {
-            Author = book.Author,
-            Description = book.Description,
-            Id = book.Id,
-            Title = book.Title
-        };
+        return _mapper.Map<BookDto>(book);
     }
 
     List<BookDto> IBookQuery.GetAll()
     {
-        var books = new List<BookDto>();
-        foreach (var book in _db.Books)
-            books.Add(new BookDto
-            {
-                Id = book.Id,
-                Title = book.Title,
-                Author = book.Author,
-                Description = book.Description
-            });
-
-
-        return books;
+        return _mapper.Map<List<BookDto>>(_db.Books);
     }
 }

@@ -1,38 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using DomainCentricDemo.Application;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using DomainCentricDemo.Domain;
-using DomainCentricDemo.Infrastructure;
 
-namespace DomainCentricDemo.Web.Pages.Book
+namespace DomainCentricDemo.Web.Pages.Book;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly IBookQuery _queryService;
+    private readonly IMapper _mapper;
+
+    public IndexModel(IBookQuery queryService,  IMapper mapper)
     {
-        private readonly IBookQuery _queryService;
-        public IndexModel(IBookQuery queryService)
-        {
-            _queryService = queryService;
-        }
+        _queryService = queryService;
+        _mapper = mapper;
+    }
 
-        public IList<BookViewModel> Books { get;set; } = default!;
+    public IList<BookViewModel> Books { get; set; } = default!;
 
-        public void OnGet()
-        {
-            Books = new List<BookViewModel>();
-            var bookDtos = _queryService.GetAll();
-            foreach (var book in bookDtos)
-                Books.Add(new BookViewModel
-                {
-                    Id = book.Id,
-                    Title = book.Title,
-                    Author = book.Author,
-                    Description = book.Description
-                });
-        }
+    public void OnGet()
+    {
+        var bookDtos = _queryService.GetAll();
+        // https://stackoverflow.com/questions/1623993/mapping-collections-using-automapper
+        Books = _mapper.Map<List<BookViewModel>>(bookDtos);
     }
 }

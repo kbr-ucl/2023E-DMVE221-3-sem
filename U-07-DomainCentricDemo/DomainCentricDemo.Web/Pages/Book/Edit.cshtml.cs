@@ -1,21 +1,22 @@
-﻿using DomainCentricDemo.Application;
+﻿using AutoMapper;
+using DomainCentricDemo.Application;
 using DomainCentricDemo.Application.Dto;
-using DomainCentricDemo.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
 namespace DomainCentricDemo.Web.Pages.Book;
 
 public class EditModel : PageModel
 {
     private readonly IBookCommand _command;
+    private readonly IMapper _mapper;
     private readonly IBookQuery _query;
 
-    public EditModel(IBookQuery query, IBookCommand command)
+    public EditModel(IBookQuery query, IBookCommand command,  IMapper mapper)
     {
         _query = query;
         _command = command;
+        _mapper = mapper;
     }
 
     [BindProperty] public BookViewModel Book { get; set; } = default!;
@@ -26,14 +27,9 @@ public class EditModel : PageModel
 
         var book = _query.Get(id.Value);
         if (book == null) return NotFound();
-        
-        Book = new BookViewModel
-        {
-            Author = book.Author, 
-            Description = book.Description, 
-            Title = book.Title,
-            Id = book.Id
-        };
+
+        Book = _mapper.Map<BookViewModel>(book);
+
         return Page();
     }
 
@@ -43,11 +39,8 @@ public class EditModel : PageModel
     {
         if (!ModelState.IsValid) return Page();
 
-        _command.Update(new BookUpdateRequestDto {Author = Book.Author, 
-            Description = Book.Description, 
-            Title = Book.Title,
-            Id = Book.Id});
+        _command.Update(_mapper.Map<BookUpdateRequestDto>(Book));
+
         return RedirectToPage("./Index");
     }
-
 }

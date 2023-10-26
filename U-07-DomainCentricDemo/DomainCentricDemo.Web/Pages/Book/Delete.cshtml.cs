@@ -1,19 +1,23 @@
-﻿using DomainCentricDemo.Application;
+﻿using AutoMapper;
+using DomainCentricDemo.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace DomainCentricDemo.Web.Pages.Book;
 
 public class DeleteModel : PageModel
-{   private readonly IBookCommand _command;
+{
+    private readonly IBookCommand _command;
+    private readonly IMapper _mapper;
     private readonly IBookQuery _query;
 
-    public DeleteModel(IBookQuery query, IBookCommand command)
+    public DeleteModel(IBookQuery query, IBookCommand command, IMapper mapper)
     {
         _query = query;
         _command = command;
+        _mapper = mapper;
     }
+
     [BindProperty] public BookViewModel Book { get; set; } = default!;
 
     public IActionResult OnGet(int? id)
@@ -22,14 +26,9 @@ public class DeleteModel : PageModel
 
         var book = _query.Get(id.Value);
         if (book == null) return NotFound();
-        
-        Book = new BookViewModel
-        {
-            Author = book.Author, 
-            Description = book.Description, 
-            Title = book.Title,
-            Id = book.Id
-        };
+
+        Book = _mapper.Map<BookViewModel>(book);
+
         return Page();
     }
 
