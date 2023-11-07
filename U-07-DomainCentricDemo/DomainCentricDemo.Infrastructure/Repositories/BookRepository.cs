@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices.ComTypes;
-using DomainCentricDemo.Application;
+﻿using DomainCentricDemo.Application;
 using DomainCentricDemo.Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,19 +13,16 @@ public class BookRepository : IBookRepository
         _db = db;
     }
 
-    void IBookRepository.Commit()
-    {
-        _db.SaveChanges();
-    }
-
     void IBookRepository.Create(Book book)
     {
         _db.Books.Add(book);
+        _db.SaveChanges();
     }
 
     void IBookRepository.Delete(Book book)
     {
         _db.Books.Remove(book);
+        _db.SaveChanges();
     }
 
     Book IBookRepository.Load(int id)
@@ -37,5 +33,6 @@ public class BookRepository : IBookRepository
     void IBookRepository.Save(Book book)
     {
         _db.Books.Update(book);
+        _db.SaveChanges();
     }
 }

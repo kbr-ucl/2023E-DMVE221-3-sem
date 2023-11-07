@@ -22,6 +22,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IBookQuery, BookQuery>();
 builder.Services.AddScoped<IBookCommand, BookCommand>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddDbContext<BookContext>(options =>
     options.UseSqlServer(
         builder.Configuration.
