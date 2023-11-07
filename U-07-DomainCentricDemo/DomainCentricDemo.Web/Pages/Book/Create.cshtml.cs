@@ -1,10 +1,12 @@
 ﻿using DomainCentricDemo.Application;
 using DomainCentricDemo.Application.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DomainCentricDemo.Web.Pages.Book;
 
+[Authorize]
 public class CreateModel : PageModel
 {
     private readonly IBookCommand _bookCommand;

@@ -16,7 +16,7 @@ public class BookQuery : IBookQuery
 
     BookDto? IBookQuery.Get(int id)
     {
-        var book = _db.Books.AsNoTracking().FirstOrDefault(a => a.Id == id);
+        var book = _db.Books.AsNoTracking().Include(a => a.Authors).FirstOrDefault(a => a.Id == id);
         if (book == null) return null;
 
         return BookMapper.MapToDto(book);
@@ -25,7 +25,7 @@ public class BookQuery : IBookQuery
     List<BookDto> IBookQuery.GetAll()
     {
         var books = new List<BookDto>();
-        foreach (var book in _db.Books)
+        foreach (var book in _db.Books.Include(a => a.Authors))
             books.Add(BookMapper.MapToDto(book));
 
 

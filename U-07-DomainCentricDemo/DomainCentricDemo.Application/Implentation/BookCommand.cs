@@ -44,7 +44,7 @@ public class BookCommand : IBookCommand
 
         // Execute
         book.Title = updateRequest.Title;
-        book.Authors = updateRequest.AuthorIds.Select(_authorRepository.Load).ToList();
+        book.Authors = updateRequest.AuthorIds.Select(id => _authorRepository.Load(id)).ToList();
         book.Description = updateRequest.Description;
 
         // Persist

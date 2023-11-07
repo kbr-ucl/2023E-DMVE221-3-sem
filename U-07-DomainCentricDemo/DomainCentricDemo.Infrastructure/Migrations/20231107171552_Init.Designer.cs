@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DomainCentricDemo.Infrastructure.Migrations
 {
     [DbContext(typeof(BookContext))]
-    [Migration("20231020092425_Author")]
-    partial class Author
+    [Migration("20231107171552_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,8 +26,8 @@ namespace DomainCentricDemo.Infrastructure.Migrations
 
             modelBuilder.Entity("AuthorBook", b =>
                 {
-                    b.Property<int>("AuthorsId")
-                        .HasColumnType("int");
+                    b.Property<string>("AuthorsId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("BooksId")
                         .HasColumnType("int");
@@ -41,11 +41,8 @@ namespace DomainCentricDemo.Infrastructure.Migrations
 
             modelBuilder.Entity("DomainCentricDemo.Domain.Author", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .IsRequired()

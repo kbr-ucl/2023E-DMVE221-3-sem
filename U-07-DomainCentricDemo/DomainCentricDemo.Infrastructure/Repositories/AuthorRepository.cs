@@ -27,7 +27,7 @@ public class AuthorRepository : IAuthorRepository
         _db.Authors.Remove(book);
     }
 
-    Author IAuthorRepository.Load(int id)
+    Author IAuthorRepository.Load(string id)
     {
         return _db.Authors.First(book => book.Id == id);
     }
