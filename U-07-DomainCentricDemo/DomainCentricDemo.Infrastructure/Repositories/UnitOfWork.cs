@@ -1,16 +1,15 @@
 ﻿using System.Transactions;
 using DomainCentricDemo.Application;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace DomainCentricDemo.Infrastructure.Repositories;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly DbContext _db;
-    private IDbContextTransaction _transaction;
+    private readonly BookContext _db;
+    private IDbContextTransaction? _transaction;
 
-    public UnitOfWork(DbContext db)
+    public UnitOfWork(BookContext db)
     {
         _db = db;
     }
@@ -23,13 +22,13 @@ public class UnitOfWork : IUnitOfWork
 
     void IUnitOfWork.Commit()
     {
-        _transaction.Commit();
-        _transaction.Dispose();
+        _transaction?.Commit();
+        _transaction?.Dispose();
     }
 
     void IUnitOfWork.Rollback()
     {
-        _transaction.Rollback();
-        _transaction.Dispose();
+        _transaction?.Rollback();
+        _transaction?.Dispose();
     }
 }
