@@ -18,9 +18,9 @@ public class IndexModel : PageModel
 
     public IList<BookViewModel> Books { get; set; } = default!;
 
-    public void OnGet()
+    public async Task OnGet()
     {
-        var books = _bookApi.GetAll();
+        var books = await _bookApi.GetAllAsync();
         Books = _mapper.Map<List<BookViewModel>>(books);
     }
 }

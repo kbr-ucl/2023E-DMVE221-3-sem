@@ -28,11 +28,11 @@ public class CreateModel : PageModel
 
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-    public IActionResult OnPost()
+    public async Task<IActionResult> OnPost()
     {
         if (!ModelState.IsValid) return Page();
 
-        _api.Create(_mapper.Map<BookDto>(Book));
+        await _api.CreateAsync(_mapper.Map<BookDto>(Book));
 
         return RedirectToPage("./Index");
     }

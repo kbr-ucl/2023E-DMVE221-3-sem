@@ -4,27 +4,27 @@ namespace DomainCentricDemo.Web.Infrastructure.Implementation
 {
     public class BookApiProxy : IBookApiProxy
     {
-        void IBookApiProxy.Create(BookDto book)
+        async Task IBookApiProxy.CreateAsync(BookDto book)
         {
             throw new NotImplementedException();
         }
 
-        void IBookApiProxy.Delete(int id)
+        async Task IBookApiProxy.DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        BookDto? IBookApiProxy.Get(int id)
+        async Task<IEnumerable<BookDto>> IBookApiProxy.GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        IEnumerable<BookDto> IBookApiProxy.GetAll()
+        async Task<BookDto?> IBookApiProxy.GetAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        void IBookApiProxy.Update(BookDto book)
+        async Task IBookApiProxy.UpdateAsync(BookDto book)
         {
             throw new NotImplementedException();
         }

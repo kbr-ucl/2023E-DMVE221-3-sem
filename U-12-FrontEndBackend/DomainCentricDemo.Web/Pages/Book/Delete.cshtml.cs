@@ -18,11 +18,11 @@ public class DeleteModel : PageModel
 
     [BindProperty] public BookViewModel Book { get; set; } = default!;
 
-    public IActionResult OnGet(int? id)
+    public async Task<IActionResult> OnGet(int? id)
     {
         if (id == null) return NotFound();
 
-        var book = _bookApi.Get(id.Value);
+        var book = await _bookApi.GetAsync(id.Value);
         if (book == null) return NotFound();
 
         Book = _mapper.Map<BookViewModel>(book);
@@ -30,11 +30,11 @@ public class DeleteModel : PageModel
         return Page();
     }
 
-    public IActionResult OnPost(int? id)
+    public async Task<IActionResult> OnPost(int? id)
     {
         if (id == null) return NotFound();
 
-        _bookApi.Delete(id.Value);
+        await _bookApi.DeleteAsync(id.Value);
 
         return RedirectToPage("./Index");
     }

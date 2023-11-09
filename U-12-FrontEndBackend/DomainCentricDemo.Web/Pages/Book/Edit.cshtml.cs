@@ -29,7 +29,7 @@ public class EditModel : PageModel
         if (id == null) return NotFound();
 
 
-        var book = _api.Get(id.Value);
+        var book = await _api.GetAsync(id.Value);
         if (book == null) return NotFound();
 
         var authorizationResult = await _authorizationService
@@ -48,11 +48,11 @@ public class EditModel : PageModel
 
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see https://aka.ms/RazorPagesCRUD.
-    public IActionResult OnPost()
+    public async Task<IActionResult> OnPost()
     {
         if (!ModelState.IsValid) return Page();
 
-        _api.Update(_mapper.Map<BookDto>(Book));
+        await _api.UpdateAsync(_mapper.Map<BookDto>(Book));
         return RedirectToPage("./Index");
     }
 }
