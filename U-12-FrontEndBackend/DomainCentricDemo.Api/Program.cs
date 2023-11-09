@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using DomainCentricDemo.Api.Data.DataInitializer;
 using DomainCentricDemo.Application;
 using DomainCentricDemo.Application.Implentation;
@@ -5,7 +6,6 @@ using DomainCentricDemo.Infrastructure;
 using DomainCentricDemo.Infrastructure.Queries;
 using DomainCentricDemo.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

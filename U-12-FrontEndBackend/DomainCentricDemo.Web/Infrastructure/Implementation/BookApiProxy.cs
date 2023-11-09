@@ -1,32 +1,39 @@
 ﻿using DomainCentricDemo.Web.Infrastructure.Dto;
 
-namespace DomainCentricDemo.Web.Infrastructure.Implementation
+namespace DomainCentricDemo.Web.Infrastructure.Implementation;
+
+public class BookApiProxy : IBookApiProxy
 {
-    public class BookApiProxy : IBookApiProxy
+    private readonly HttpClient _client;
+    private readonly string _ressource = "api/Book";
+
+    public BookApiProxy(HttpClient client)
     {
-        async Task IBookApiProxy.CreateAsync(BookDto book)
-        {
-            throw new NotImplementedException();
-        }
+        _client = client;
+    }
 
-        async Task IBookApiProxy.DeleteAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+    async Task IBookApiProxy.CreateAsync(BookDto book)
+    {
+        await _client.PostAsJsonAsync(_ressource, book);
+    }
 
-        async Task<IEnumerable<BookDto>> IBookApiProxy.GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
+    async Task IBookApiProxy.DeleteAsync(int id)
+    {
+        await _client.DeleteAsync($"{_ressource}/{id}");
+    }
 
-        async Task<BookDto?> IBookApiProxy.GetAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+    async Task<IEnumerable<BookDto>?> IBookApiProxy.GetAllAsync()
+    {
+        return await _client.GetFromJsonAsync<List<BookDto>>(_ressource);
+    }
 
-        async Task IBookApiProxy.UpdateAsync(BookDto book)
-        {
-            throw new NotImplementedException();
-        }
+    async Task<BookDto?> IBookApiProxy.GetAsync(int id)
+    {
+        return await _client.GetFromJsonAsync<BookDto>($"{_ressource}/{id}");
+    }
+
+    async Task IBookApiProxy.UpdateAsync(BookDto book)
+    {
+        await _client.PutAsJsonAsync(_ressource, book);
     }
 }

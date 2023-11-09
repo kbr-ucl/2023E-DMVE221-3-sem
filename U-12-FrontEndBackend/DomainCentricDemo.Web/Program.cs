@@ -13,7 +13,14 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<IBookApiProxy, BookApiProxy>();
+builder.Services.AddHttpClient<IBookApiProxy, BookApiProxy>
+(
+    client =>
+    {
+        client.BaseAddress =
+            new Uri(builder.Configuration["BackendBaseUri"] ?? String.Empty);
+    }
+);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
                        throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -54,6 +61,10 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddScoped<IAuthorizationHandler, IsSoleAuthorOrAdminHandler>();
+
+// https://docs.automapper.org/en/stable/Getting-started.html
+// https://stackoverflow.com/questions/71216149/how-to-setup-automapper-in-asp-net-core-6
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
