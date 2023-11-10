@@ -8,6 +8,6 @@ namespace DomainCentricDemo.Web.Infrastructure
         Task<BookDto?> GetAsync(int id);
         Task DeleteAsync(int id);
         Task UpdateAsync(BookDto book);
-        Task<IEnumerable<BookDto>> GetAllAsync();
+        Task<IEnumerable<BookDto>?> GetAllAsync();
     }
 }

@@ -26,6 +26,6 @@ public class BookQuery : IBookQuery
 
     List<BookDto> IBookQuery.GetAll()
     {
-        return _mapper.Map<List<BookDto>>(_db.Books);
+        return _mapper.Map<List<BookDto>>(_db.Books.Include(a => a.Authors).AsNoTracking());
     }
 }

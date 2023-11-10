@@ -47,7 +47,7 @@ namespace DomainCentricDemo.Api.Controllers
         }
 
         // PUT api/<Book>
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Put([FromBody] BookDto book)
         {
             var commandDto = _mapper.Map<BookUpdateRequestDto>(book);

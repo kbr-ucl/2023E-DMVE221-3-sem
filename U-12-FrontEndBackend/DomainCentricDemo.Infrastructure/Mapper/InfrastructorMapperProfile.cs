@@ -9,5 +9,7 @@ public class InfrastructorMapperProfile : Profile
     public InfrastructorMapperProfile()
     {
         CreateMap<Book, BookDto>();
+        CreateMap<Author, AuthorDto>();
+        CreateMap<Author, BookAuthorDto>(MemberList.Destination);
     }
 }
