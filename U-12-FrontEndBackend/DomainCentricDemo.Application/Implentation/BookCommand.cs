@@ -6,14 +6,12 @@ namespace DomainCentricDemo.Application.Implentation;
 
 public class BookCommand : IBookCommand
 {
-    private readonly IAuthorRepository _authorRepository;
     private readonly IBookRepository _bookRepository;
     private readonly IMapper _mapper;
 
-    public BookCommand(IBookRepository bookRepository, IAuthorRepository authorRepository, IMapper mapper)
+    public BookCommand(IBookRepository bookRepository, IMapper mapper)
     {
         _bookRepository = bookRepository;
-        _authorRepository = authorRepository;
         _mapper = mapper;
     }
 
@@ -47,7 +45,6 @@ public class BookCommand : IBookCommand
 
         // Execute
         book.Title = updateRequest.Title;
-        book.Authors = updateRequest.AuthorIds.Select(id => _authorRepository.Load(id)).ToList();
         book.Description = updateRequest.Description;
 
         // Persist
