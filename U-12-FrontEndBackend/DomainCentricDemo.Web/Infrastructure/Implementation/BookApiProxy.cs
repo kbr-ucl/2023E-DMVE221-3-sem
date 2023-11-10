@@ -21,6 +21,7 @@ public class BookApiProxy : IBookApiProxy
     {
         await _client.DeleteAsync($"{_ressource}/{id}");
     }
+    }
 
     async Task<IEnumerable<BookDto>?> IBookApiProxy.GetAllAsync()
     {
@@ -35,5 +36,7 @@ public class BookApiProxy : IBookApiProxy
     async Task IBookApiProxy.UpdateAsync(BookDto book)
     {
         await _client.PutAsJsonAsync(_ressource, book);
+    }
+}
     }
 }
