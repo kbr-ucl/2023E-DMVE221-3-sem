@@ -1,4 +1,5 @@
 ﻿using DomainCentricDemo.Web.Infrastructure.Dto;
+using Elfie.Serialization;
 
 namespace DomainCentricDemo.Web.Infrastructure.Implementation;
 
@@ -35,5 +36,19 @@ public class BookApiProxy : IBookApiProxy
     async Task IBookApiProxy.UpdateAsync(BookDto book)
     {
         await _client.PutAsJsonAsync(_ressource, book);
+    }
+}
+
+public class WetherApiProxy : IWetherApiProxy
+{
+    private readonly HttpClient _client;
+
+    public WetherApiProxy(HttpClient client)
+    {
+        _client = client;
+    }
+    async Task<IEnumerable<WetherDto>?> IWetherApiProxy.GetAllAsync()
+    {
+        return await _client.GetFromJsonAsync<List<WetherDto>>("WeatherForecast");
     }
 }

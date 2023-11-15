@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{4AEEFFE6-D5A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainCentricDemo.Api", "DomainCentricDemo.Api\DomainCentricDemo.Api.csproj", "{35A8F8F8-1B15-4ED2-A71B-5EF02562555A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EkstraApi", "EkstraApi", "{09331CA2-4195-43F4-A1CC-75014603E92D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApi", "DemoApi\DemoApi.csproj", "{F3777217-0456-439B-AAC4-6E3E715BE149}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,10 @@ Global
 		{35A8F8F8-1B15-4ED2-A71B-5EF02562555A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35A8F8F8-1B15-4ED2-A71B-5EF02562555A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35A8F8F8-1B15-4ED2-A71B-5EF02562555A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3777217-0456-439B-AAC4-6E3E715BE149}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3777217-0456-439B-AAC4-6E3E715BE149}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3777217-0456-439B-AAC4-6E3E715BE149}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3777217-0456-439B-AAC4-6E3E715BE149}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +58,7 @@ Global
 		{B9F1965F-81E8-44B7-B6C5-4EB010CCB241} = {4AEEFFE6-D5A7-420D-A4AC-84B0D562A1FF}
 		{8E9C6E3F-1DC9-46B6-8F45-3983E4B2488D} = {4AEEFFE6-D5A7-420D-A4AC-84B0D562A1FF}
 		{35A8F8F8-1B15-4ED2-A71B-5EF02562555A} = {4AEEFFE6-D5A7-420D-A4AC-84B0D562A1FF}
+		{F3777217-0456-439B-AAC4-6E3E715BE149} = {09331CA2-4195-43F4-A1CC-75014603E92D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F004E64C-5659-4AE6-9A45-7F5C8D472616}

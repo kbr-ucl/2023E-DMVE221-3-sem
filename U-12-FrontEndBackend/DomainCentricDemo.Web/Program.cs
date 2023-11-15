@@ -22,6 +22,15 @@ builder.Services.AddHttpClient<IBookApiProxy, BookApiProxy>
     }
 );
 
+builder.Services.AddHttpClient<IWetherApiProxy, WetherApiProxy>
+(
+    client =>
+    {
+        client.BaseAddress =
+            new Uri(builder.Configuration["WetherBaseUri"] ?? String.Empty);
+    }
+);
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
                        throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

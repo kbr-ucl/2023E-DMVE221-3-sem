@@ -8,12 +8,14 @@ public class IndexModel : PageModel
 {
     private readonly IBookApiProxy _bookApi;
     private readonly IMapper _mapper;
+    private readonly IWetherApiProxy _wether;
 
 
-    public IndexModel(IBookApiProxy bookApi, IMapper mapper)
+    public IndexModel(IBookApiProxy bookApi, IMapper mapper, IWetherApiProxy wether)
     {
         _bookApi = bookApi;
         _mapper = mapper;
+        _wether = wether;
     }
 
     public IList<BookViewModel> Books { get; set; } = default!;
@@ -22,5 +24,6 @@ public class IndexModel : PageModel
     {
         var books = await _bookApi.GetAllAsync();
         Books = _mapper.Map<List<BookViewModel>>(books);
+        var demo = await _wether.GetAllAsync();
     }
 }

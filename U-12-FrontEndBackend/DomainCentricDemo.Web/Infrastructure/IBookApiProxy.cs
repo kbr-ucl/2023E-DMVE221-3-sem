@@ -10,4 +10,9 @@ namespace DomainCentricDemo.Web.Infrastructure
         Task UpdateAsync(BookDto book);
         Task<IEnumerable<BookDto>?> GetAllAsync();
     }
+
+    public interface IWetherApiProxy
+    {
+        Task<IEnumerable<WetherDto>?> GetAllAsync();
+    }
 }
