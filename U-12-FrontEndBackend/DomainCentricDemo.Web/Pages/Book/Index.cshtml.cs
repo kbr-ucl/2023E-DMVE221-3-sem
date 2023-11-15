@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DomainCentricDemo.Web.Infrastructure;
+using DomainCentricDemo.Web.Infrastructure.Dto;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DomainCentricDemo.Web.Pages.Book;
@@ -19,11 +20,12 @@ public class IndexModel : PageModel
     }
 
     public IList<BookViewModel> Books { get; set; } = default!;
+    public IEnumerable<WetherDto> Weathers { get; set; }
 
     public async Task OnGet()
     {
         var books = await _bookApi.GetAllAsync();
         Books = _mapper.Map<List<BookViewModel>>(books);
-        var demo = await _wether.GetAllAsync();
+        Weathers = await _wether.GetAllAsync() ?? new List<WetherDto>();
     }
 }
