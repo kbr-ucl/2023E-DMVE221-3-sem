@@ -9,6 +9,9 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["DomainCentricDemo.Api/DomainCentricDemo.Api.csproj", "DomainCentricDemo.Api/"]
+COPY ["DomainCentricDemo.Application/DomainCentricDemo.Application.csproj", "DomainCentricDemo.Application/"]
+COPY ["DomainCentricDemo.Domain/DomainCentricDemo.Domain.csproj", "DomainCentricDemo.Domain/"]
+COPY ["DomainCentricDemo.Infrastructure/DomainCentricDemo.Infrastructure.csproj", "DomainCentricDemo.Infrastructure/"]
 RUN dotnet restore "./DomainCentricDemo.Api/./DomainCentricDemo.Api.csproj"
 COPY . .
 WORKDIR "/src/DomainCentricDemo.Api"
