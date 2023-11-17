@@ -7,7 +7,7 @@
     <ProjectGuid>3f3f4184-d716-4480-b067-17501ad64429</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>bookdemo.web</DockerServiceName>
+    <DockerServiceName>darpbookdemo</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.yml" />

@@ -13,23 +13,9 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddHttpClient<IBookApiProxy, BookApiProxy>
-(
-    client =>
-    {
-        client.BaseAddress =
-            new Uri(builder.Configuration["BackendBaseUri"] ?? String.Empty);
-    }
-);
-
-builder.Services.AddHttpClient<IWetherApiProxy, WetherApiProxy>
-(
-    client =>
-    {
-        client.BaseAddress =
-            new Uri(builder.Configuration["WetherBaseUri"] ?? String.Empty);
-    }
-);
+builder.Services.AddDaprClient();
+builder.Services.AddScoped<IBookApiProxy, BookApiDapr>();
+builder.Services.AddScoped<IWetherApiProxy, WetherApiDapr>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
                        throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
