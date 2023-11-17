@@ -4,7 +4,6 @@ services:
   bookdemoweb:
     ports:
       - "30000:80"
-      - "50003:50003" # Dapr instances communicate over gRPC so we need to expose the gRPC port
     image: ${DOCKER_REGISTRY-}bookdemoweb
     build:
       context: .
@@ -13,11 +12,10 @@ services:
       "ASPNETCORE_ENVIRONMENT": "Development"
       "ASPNETCORE_URLS": "http://+:80"
       "ConnectionStrings:DefaultConnection": "Server=host.docker.internal;Database=BookDbUsers;User Id=docker; Password=docker1234;Trusted_Connection=False;MultipleActiveResultSets=true; TrustServerCertificate=true"
-      DAPR_GRPC_PORT: 50003
 
   bookweb-dapr:
     image: "daprio/daprd:latest"
-    command: [ "./daprd", "-app-id", "bookdemoweb", "-app-port", "80", "-dapr-grpc-port", "50003" ]
+    command: ["./daprd", "-app-id", "bookdemoweb", "-app-port", "80"]
     depends_on:
       - bookdemoweb
     network_mode: "service:bookdemoweb" 
@@ -26,7 +24,6 @@ services:
   weatherdemoapi:
     ports:
       - "30001:80"
-      - "50002:50002" # Dapr instances communicate over gRPC so we need to expose the gRPC port
     image: ${DOCKER_REGISTRY-}weatherdemoapi
     build:
       context: .
@@ -34,17 +31,10 @@ services:
     environment:    
       "ASPNETCORE_ENVIRONMENT": "Development"
       "ASPNETCORE_URLS": "http://+:80"
-      DAPR_GRPC_PORT: 50002
 
   weatherservice-dapr:
     image: "daprio/daprd:latest"
-    command: [ 
-     "./daprd", 
-     "-app-id", "weatherdemoapi",
-     "-app-port", "80", 
-     "-dapr-grpc-port", "50002", 
-     "-dapr-http-port", "45000"
-     ]
+    command: ["./daprd", "-app-id", "weatherdemoapi", "-app-port", "80"]
     depends_on:
       - weatherdemoapi
     network_mode: "service:weatherdemoapi" 
@@ -53,7 +43,6 @@ services:
   bookdemoapi:
     ports:
       - "30002:80"
-      - "50001:50001" # Dapr instances communicate over gRPC so we need to expose the gRPC port
     image: ${DOCKER_REGISTRY-}bookdemoapi
     build:
       context: .
@@ -62,18 +51,10 @@ services:
       "ASPNETCORE_ENVIRONMENT": "Development"
       "ASPNETCORE_URLS": "http://+:80"
       "ConnectionStrings:BookConnectionString": "Server=host.docker.internal;Database=BookDb;User Id=docker; Password=docker1234;Trusted_Connection=False;MultipleActiveResultSets=true; TrustServerCertificate=true"
-      DAPR_GRPC_PORT: 50001
  
   bookservice-dapr:
     image: "daprio/daprd:latest"
-    command: [
-     "./daprd",
-     "-app-id", "bookdemoapi",
-     "-app-port", "80",
-     "-dapr-grpc-port", "50001",
-     "-placement-host-address", "placement:50006",
-     "-dapr-http-port", "46000"
-     ]
+    command: ["./daprd", "-app-id", "bookdemoapi", "-app-port", "80"]
     depends_on:
       - bookdemoapi
     network_mode: "service:bookdemoapi" 
