@@ -15,9 +15,12 @@ services:
 
   bookweb-dapr:
     image: "daprio/daprd:latest"
-    command: ["./daprd", "-app-id", "bookdemoweb", "-app-port", "80"]
+    command: ["./daprd", "-app-id", "bookdemoweb", "-app-port", "80", "-components-path", "/components"]
+    volumes:
+      - "./components/:/components"
     depends_on:
       - bookdemoweb
+      - redis
     network_mode: "service:bookdemoweb" 
 
 
@@ -54,7 +57,17 @@ services:
  
   bookservice-dapr:
     image: "daprio/daprd:latest"
-    command: ["./daprd", "-app-id", "bookdemoapi", "-app-port", "80"]
+    command: ["./daprd", "-app-id", "bookdemoapi", "-app-port", "80", "-components-path", "/components"]
     depends_on:
       - bookdemoapi
+      - redis
     network_mode: "service:bookdemoapi" 
+
+  redis:
+    image: redis
+    hostname: redisstate
+    ports:
+      - "6379:6379"
+    # volumes:
+    #   - ./redisdata:/data
+    # command: redis-server --appendonly yes

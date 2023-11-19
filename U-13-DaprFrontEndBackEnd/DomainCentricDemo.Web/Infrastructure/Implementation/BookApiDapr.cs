@@ -16,10 +16,13 @@ public class BookApiDapr : IBookApiProxy
 
     async Task IBookApiProxy.CreateAsync(BookDto book)
     {
-        await _daprClient.InvokeMethodAsync(
-            HttpMethod.Post,
-            _appId,
-            _methodName, book);
+        //await _daprClient.InvokeMethodAsync(
+        //    HttpMethod.Post,
+        //    _appId,
+        //    _methodName, book);
+
+        // publish create book (Dapr publish / subscribe)
+        await _daprClient.PublishEventAsync("pubsub", "books", book);
     }
 
     async Task IBookApiProxy.DeleteAsync(int id)

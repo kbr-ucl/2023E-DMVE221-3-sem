@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Debugger.Launch();
+
 // Add services to the container.
 builder.Services.AddDaprClient();
 builder.Services.AddScoped<IBookApiProxy, BookApiDapr>();
@@ -38,7 +40,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddScoped<RoleManager<IdentityRole>>();
-
+builder.Services.AddControllers().AddDapr();
 builder.Services.AddRazorPages();
 
 
@@ -66,6 +68,7 @@ var app = builder.Build();
 SeedUsers();
 
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -75,7 +78,7 @@ else
 {
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    // app.UseHsts();
 }
 
 // app.UseHttpsRedirection();
@@ -84,7 +87,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.UseCloudEvents();
+app.MapControllers();
 app.MapRazorPages();
 
 app.Run();

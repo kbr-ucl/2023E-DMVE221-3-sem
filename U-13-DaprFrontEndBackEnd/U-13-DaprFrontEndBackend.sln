@@ -24,6 +24,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6213D5C0-BF61-4D98-B07A-2ACBD7E16E8B}"
 	ProjectSection(SolutionItems) = preProject
 		Docker-create-user.sql = Docker-create-user.sql
+		Note.md = Note.md
+		components\pubsub.yml = components\pubsub.yml
+		start-all.ps1 = start-all.ps1
 	EndProjectSection
 EndProject
 Global
