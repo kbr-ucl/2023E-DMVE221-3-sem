@@ -26,6 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Docker-create-user.sql = Docker-create-user.sql
 		Note.md = Note.md
 		components\pubsub.yml = components\pubsub.yml
+		start-all-visual-studio.ps1 = start-all-visual-studio.ps1
 		start-all.ps1 = start-all.ps1
 	EndProjectSection
 EndProject

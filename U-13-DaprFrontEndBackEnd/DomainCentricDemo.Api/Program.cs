@@ -10,7 +10,11 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDaprClient();
+var daprHttpPort = Environment.GetEnvironmentVariable("DAPR_HTTP_PORT") ?? "32000";
+var daprGrpcPort = Environment.GetEnvironmentVariable("DAPR_GRPC_PORT") ?? "3800";
+builder.Services.AddDaprClient(builder => builder
+    .UseHttpEndpoint($"http://localhost:{daprHttpPort}")
+    .UseGrpcEndpoint($"http://localhost:{daprGrpcPort}"));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

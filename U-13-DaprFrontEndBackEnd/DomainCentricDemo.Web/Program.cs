@@ -12,10 +12,14 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Debugger.Launch();
+var daprHttpPort = Environment.GetEnvironmentVariable("DAPR_HTTP_PORT") ?? "30000";
+var daprGrpcPort = Environment.GetEnvironmentVariable("DAPR_GRPC_PORT") ?? "3600";
+builder.Services.AddDaprClient(builder => builder
+    .UseHttpEndpoint($"http://localhost:{daprHttpPort}")
+    .UseGrpcEndpoint($"http://localhost:{daprGrpcPort}"));
 
 // Add services to the container.
-builder.Services.AddDaprClient();
+//builder.Services.AddDaprClient();
 builder.Services.AddScoped<IBookApiProxy, BookApiDapr>();
 builder.Services.AddScoped<IWetherApiProxy, WetherApiDapr>();
 

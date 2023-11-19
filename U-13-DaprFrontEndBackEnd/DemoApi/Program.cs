@@ -1,7 +1,11 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDaprClient();
+var daprHttpPort = Environment.GetEnvironmentVariable("DAPR_HTTP_PORT") ?? "31000";
+var daprGrpcPort = Environment.GetEnvironmentVariable("DAPR_GRPC_PORT") ?? "3700";
+builder.Services.AddDaprClient(builder => builder
+    .UseHttpEndpoint($"http://localhost:{daprHttpPort}")
+    .UseGrpcEndpoint($"http://localhost:{daprGrpcPort}"));
 
 builder.Services.AddControllers().AddDapr();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
