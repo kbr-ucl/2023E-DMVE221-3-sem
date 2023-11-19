@@ -3,7 +3,7 @@ version: '3.4'
 services:
   bookdemoweb:
     ports:
-      - "30000:80"
+      - "40000:80"
     image: ${DOCKER_REGISTRY-}bookdemoweb
     build:
       context: .
@@ -15,7 +15,7 @@ services:
 
   bookweb-dapr:
     image: "daprio/daprd:latest"
-    command: ["./daprd", "-app-id", "bookdemoweb", "-app-port", "80", "-components-path", "/components"]
+    command: ["./daprd", "-app-id", "bookdemoweb", "-app-port", "80", "-dapr-http-port", "30000", "-dapr-grpc-port", "3600", "-components-path", "/components"]
     volumes:
       - "./components/:/components"
     depends_on:
@@ -26,7 +26,7 @@ services:
 
   weatherdemoapi:
     ports:
-      - "30001:80"
+      - "40001:80"
     image: ${DOCKER_REGISTRY-}weatherdemoapi
     build:
       context: .
@@ -37,7 +37,7 @@ services:
 
   weatherservice-dapr:
     image: "daprio/daprd:latest"
-    command: ["./daprd", "-app-id", "weatherdemoapi", "-app-port", "80"]
+    command: ["./daprd", "-app-id", "weatherdemoapi", "-app-port", "80", "-dapr-http-port", "31000", "-dapr-grpc-port", "3700"]
     depends_on:
       - weatherdemoapi
     network_mode: "service:weatherdemoapi" 
@@ -45,7 +45,7 @@ services:
 
   bookdemoapi:
     ports:
-      - "30002:80"
+      - "40002:80"
     image: ${DOCKER_REGISTRY-}bookdemoapi
     build:
       context: .
@@ -57,7 +57,7 @@ services:
  
   bookservice-dapr:
     image: "daprio/daprd:latest"
-    command: ["./daprd", "-app-id", "bookdemoapi", "-app-port", "80", "-components-path", "/components"]
+    command: ["./daprd", "-app-id", "bookdemoapi", "-app-port", "80", "-dapr-http-port", "32000", "-dapr-grpc-port", "3800", "-components-path", "/components"]
     depends_on:
       - bookdemoapi
       - redis

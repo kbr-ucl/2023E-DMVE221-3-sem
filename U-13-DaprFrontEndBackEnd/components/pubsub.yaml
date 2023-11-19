@@ -9,3 +9,5 @@ spec:
   metadata:
   - name: redisHost
     value: redisstate:6379  
+  - name: redisPassword
+    value: ""
