@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var daprHttpPort = Environment.GetEnvironmentVariable("DAPR_HTTP_PORT") ?? "32000";
 var daprGrpcPort = Environment.GetEnvironmentVariable("DAPR_GRPC_PORT") ?? "3800";
-builder.Services.AddDaprClient(builder => builder
+builder.Services.AddDaprClient(config => config
     .UseHttpEndpoint($"http://localhost:{daprHttpPort}")
     .UseGrpcEndpoint($"http://localhost:{daprGrpcPort}"));
 
@@ -51,10 +51,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCloudEvents();
-
+app.MapSubscribeHandler();
 app.MapControllers();
 
-app.MapSubscribeHandler();
 
 app.Run();
 

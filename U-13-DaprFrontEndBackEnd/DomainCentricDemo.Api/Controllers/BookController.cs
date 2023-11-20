@@ -45,7 +45,7 @@ namespace DomainCentricDemo.Api.Controllers
 
         // POST api/<Book>
         [Topic("pubsub", "books", "deadletters", false)]
-        // [HttpPost]
+        [HttpPost]
         public void Post([FromBody] BookDto book)
         {
             var commandDto = _mapper.Map<BookCreateCommandRequestDto>(book);

@@ -4,6 +4,11 @@ services:
   bookdemoweb:
     ports:
       - "40000:80"
+    depends_on:
+      - weatherservice-dapr
+      - bookservice-dapr
+    # networks:
+    #   - bookdemoweb-network
     image: ${DOCKER_REGISTRY-}bookdemoweb
     build:
       context: .
@@ -20,13 +25,16 @@ services:
       - "./components/:/components"
     depends_on:
       - bookdemoweb
-      - redis
-    network_mode: "service:bookdemoweb" 
+    network_mode: "service:bookdemoweb"
 
 
   weatherdemoapi:
     ports:
       - "40001:80"
+    # depends_on:
+    #   - redis
+    # networks:
+    #   - bookdemoweb-network
     image: ${DOCKER_REGISTRY-}weatherdemoapi
     build:
       context: .
@@ -37,7 +45,9 @@ services:
 
   weatherservice-dapr:
     image: "daprio/daprd:latest"
-    command: ["./daprd", "-app-id", "weatherdemoapi", "-app-port", "80", "-dapr-http-port", "31000", "-dapr-grpc-port", "3700"]
+    command: ["./daprd", "-app-id", "weatherdemoapi", "-app-port", "80", "-dapr-http-port", "31000", "-dapr-grpc-port", "3700", "-components-path", "/components"]
+    volumes:
+      - "./components/:/components"
     depends_on:
       - weatherdemoapi
     network_mode: "service:weatherdemoapi" 
@@ -46,6 +56,11 @@ services:
   bookdemoapi:
     ports:
       - "40002:80"
+    # depends_on:
+    #   - placement
+    #   - redis
+    # networks:
+    #   - bookdemoweb-network
     image: ${DOCKER_REGISTRY-}bookdemoapi
     build:
       context: .
@@ -58,9 +73,11 @@ services:
   bookservice-dapr:
     image: "daprio/daprd:latest"
     command: ["./daprd", "-app-id", "bookdemoapi", "-app-port", "80", "-dapr-http-port", "32000", "-dapr-grpc-port", "3800", "-components-path", "/components"]
+    volumes:
+      - "./components/:/components"
     depends_on:
       - bookdemoapi
-      - redis
+      # - redis
     network_mode: "service:bookdemoapi" 
 
   redis:
@@ -68,6 +85,20 @@ services:
     hostname: redisstate
     ports:
       - "6379:6379"
+    # networks:
+    #   - bookdemoweb-network
+ 
+  # placement:
+  #   image: "daprio/dapr"
+  #   command: ["./placement", "-port", "50006"]
+  #   ports:
+  #     - "50006:50006"
+  #   # networks:
+  #   #   - bookdemoweb-network  
+      
+# networks:
+#   bookdemoweb-network: 
+    
     # volumes:
     #   - ./redisdata:/data
     # command: redis-server --appendonly yes

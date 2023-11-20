@@ -46,3 +46,5 @@ dapr run --app-id bookdemoweb --app-port 5039 --dapr-http-port 30000
 
 dapr invoke --app-id bookdemoapi  --verb GET -m api/book
 dapr invoke --app-id weatherdemoapi  --verb GET -m weatherforecast
+
+https://medium.com/@__hungrywolf/microservices-pub-sub-with-dapr-docker-compose-and-net-1e5be05ada1a

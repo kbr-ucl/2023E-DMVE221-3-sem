@@ -8,6 +8,6 @@ spec:
   version: v1
   metadata:
   - name: redisHost
-    value: redisstate:6379  
-  # - name: redisPassword
-  #   value: ""
+    value: redisstate:6479  
+  - name: redisPassword
+    value: ""
