@@ -44,7 +44,7 @@ namespace DomainCentricDemo.Api.Controllers
         }
 
         // POST api/<Book>
-        [Topic("pubsub", "books", "deadletters", false)]
+        // [Topic("pubsub", "books", "deadletters", false)]
         [HttpPost]
         public void Post([FromBody] BookDto book)
         {

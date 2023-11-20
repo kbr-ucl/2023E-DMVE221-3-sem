@@ -7,5 +7,5 @@ spec:
   topic: books
   route: /api/book
 scopes:
-- bookdemoweb
-- bookdemoapi
+  - bookdemoweb
+  - bookdemoapi

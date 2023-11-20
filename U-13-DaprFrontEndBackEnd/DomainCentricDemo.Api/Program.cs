@@ -51,7 +51,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCloudEvents();
-app.MapSubscribeHandler();
+// app.MapSubscribeHandler();
 app.MapControllers();
 
 
